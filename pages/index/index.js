@@ -18,7 +18,7 @@ Page({
     })
   },
 
-  //加载正在热映电影
+  //加载最近热映电影
   getMovieListData: function(isRefresh) {
     var that = this;
     wx.request({
