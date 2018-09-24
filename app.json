@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/index/movie-detail/movie-detail",
-    "pages/category/category"
+    "pages/category/category",
+    "pages/collect/collect"
   ],
   "window": {
     "navigationBarBackgroundColor": "#4A6141",
@@ -26,6 +27,12 @@
         "text": "Top250",
         "iconPath": "images/icon/wx_app_movie.png",
         "selectedIconPath": "images/icon/wx_app_movie@HL.png"
+      },
+      {
+        "pagePath": "pages/collect/collect",
+        "text": "收藏",
+        "iconPath": "images/icon/wx_app_collect.png",
+        "selectedIconPath": "images/icon/wx_app_collect@HL.png"
       }
     ]
   }

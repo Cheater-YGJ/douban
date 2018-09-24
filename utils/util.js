@@ -139,10 +139,54 @@ function convertToCastInfos(casts) {
   return castsArray;
 }
 
+//收藏或取消收藏电影
+function collectMovie(movieId) {
+  var ids = wx.getStorageSync("collectedMovies");
+  if (ids) {
+    var tag = false;
+    for (var idx in ids) {
+      if (movieId == ids[idx]) {
+        ids.splice(idx, 1);
+        tag = true;
+        break;
+      }
+    }
+    if (!tag) {
+      ids.push(movieId);
+    }
+    wx.setStorageSync("collectedMovies", ids);
+  } else {
+    ids = [];
+    ids.push(movieId);
+    wx.setStorageSync("collectedMovies", ids);
+  }
+}
+
+//获取所有收藏id
+function getAllCollectedMovies() {
+  return wx.getStorageSync("collectedMovies");
+}
+
+//获取收藏状态
+function getCollectionStatus(movieId) {
+  var ids = wx.getStorageSync("collectedMovies");
+  if (ids) {
+    for (var idx in ids) {
+      if (movieId == ids[idx]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 module.exports = {
   getDiffTime: getDiffTime,
   convertToStarsArray: convertToStarsArray,
   http: http,
   convertToCastString: convertToCastString,
-  convertToCastInfos: convertToCastInfos
+  convertToCastInfos: convertToCastInfos,
+  collectMovie: collectMovie,
+  getAllCollectedMovies: getAllCollectedMovies,
+  getCollectionStatus: getCollectionStatus
 }

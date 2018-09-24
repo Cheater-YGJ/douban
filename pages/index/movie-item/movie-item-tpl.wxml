@@ -1,0 +1,13 @@
+<import src="../stars/stars-tpl.wxml" />
+<template name="movie-item">
+  <view class='movie-item' catchtap='onTapToDetail' data-movie-id='{{movieId}}'>
+    <image class='coverage' src='{{coverageUrl}}' mode='aspectFill' />
+    <text class='title'>{{title}}\n</text>
+    <text class='director'>导演：{{directors}}\n</text>
+    <text class='actor'>演员：{{casts}}</text>
+    <view class="flex-row">
+      <text class="mark">评分</text>
+      <template is="starsTpl" data="{{stars:stars, score:score}}" />
+    </view>
+  </view>
+</template>

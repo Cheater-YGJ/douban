@@ -65,6 +65,19 @@
   right: 30rpx;
 }
 
+.collect-img {
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  top: 55rpx;
+  right: 92.5rpx;
+}
+
+.collect-img image {
+  height: 50rpx;
+  width: 50rpx;
+}
+
 .summary {
   margin-left: 40rpx;
   margin-top: 40rpx;

@@ -1,18 +1,11 @@
-<import src="stars/stars-tpl.wxml" />
+<import src="movie-item/movie-item-tpl.wxml" />
 <view>
   <swiper indicator-dots='true' autoplay='true'>
     <swiper-item wx:for='{{swiperImages}}' catchtap='onTapToDetail' data-movie-id='{{item.movieId}}'>
       <image src='{{item.coverageUrl}}' mode='aspectFill' />
     </swiper-item>
   </swiper>
-  <view class='movie-item' wx:for="{{inTheatersMovies}}" catchtap='onTapToDetail' data-movie-id='{{item.movieId}}'>
-    <image class='coverage' src='{{item.coverageUrl}}' mode='aspectFill' />
-    <text class='title'>{{item.title}}\n</text>
-    <text class='director'>导演：{{item.directors}}\n</text>
-    <text class='actor'>演员：{{item.casts}}</text>
-    <view class="flex-row">
-      <text class="mark">评分</text>
-      <template is="starsTpl" data="{{stars:item.stars, score:item.score}}" />
-    </view>
-  </view>
+  <block wx:for="{{inTheatersMovies}}">
+    <template is="movie-item" data="{{...item}}" />
+  </block>
 </view>

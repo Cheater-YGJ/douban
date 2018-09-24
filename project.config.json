@@ -39,9 +39,10 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
-					"name": "Top250",
-					"pathName": "pages/category/category"
+					"id": 0,
+					"name": "detail",
+					"pathName": "pages/index/movie-detail/movie-detail",
+					"query": "id=27069427"
 				}
 			]
 		}

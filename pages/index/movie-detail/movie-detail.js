@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    movie: {}
+    movie: {},
+    isCollected: false
   },
 
   /**
@@ -15,7 +16,11 @@ Page({
   onLoad: function(options) {
     var movieId = options.id;
     var url = "https://douban.uieee.com/v2/movie/subject/" + movieId;
+    this.data.movieId = movieId;
     this.getMovieInfo(url);
+    this.setData({
+      isCollected: util.getCollectionStatus(movieId)
+    });
   },
 
   //获取电影详细信息
@@ -74,6 +79,18 @@ Page({
     wx.previewImage({
       current: src,
       urls: [src]
+    })
+  },
+
+  collectTap: function() {
+    util.collectMovie(this.data.movieId);
+    this.setData({
+      isCollected: util.getCollectionStatus(this.data.movieId)
+    });
+    wx.showToast({
+      title: this.data.isCollected ? '收藏成功' : '取消成功',
+      icon: 'success',
+      mask: true
     })
   },
 

@@ -1,0 +1,6 @@
+<import src="../index/movie-item/movie-item-tpl.wxml" />
+<view>
+  <block wx:for="">
+    <template is="movie-item" data="{{...item}}" />
+  </block>
+</view>
