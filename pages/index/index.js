@@ -28,7 +28,7 @@ Page({
       var title = subject.title;
       var temp = {
         title: title,
-        coverageUrl: subject.images.medium,
+        coverageUrl: subject.images.large,
         movieId: subject.id,
         stars: util.convertToStarsArray(subject.rating.stars),
         score: subject.rating.average,
@@ -50,19 +50,11 @@ Page({
     });
   },
 
-  failCallBack: function(isRefresh) {
-    console.log(error);
-    if (!isRefresh) {
-      wx.showToast({
-        title: '加载失败',
-        icon: 'none'
-      })
-    } else {
-      wx.showToast({
-        title: '刷新失败',
-        icon: 'none'
-      })
-    }
+  failCallBack: function() {
+    wx.showToast({
+      title: '加载失败',
+      icon: 'none'
+    })
   },
 
   /**
@@ -110,7 +102,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    util.http(this.data.baseUrl, this.loadInTheatersMovies, this.failCallBack(true));
+    util.http(this.data.baseUrl, this.loadInTheatersMovies, this.failCallBack);
     wx.showNavigationBarLoading();
   },
 

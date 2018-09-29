@@ -54,7 +54,6 @@ Page({
   },
 
   failCallBack: function(error) {
-    console.log(error);
     wx.showToast({
       title: '加载失败',
       icon: 'none'

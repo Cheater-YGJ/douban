@@ -9,46 +9,28 @@ Page({
     movies: []
   },
 
-  getMovieListData: function(url) {
-    var that = this;
-    wx.request({
-      url: url,
-      method: 'GET',
-      header: {
-        "Content-Type": "json"
-      },
-      success: function(res) {
-        console.log(res.data);
-        var data = res.data;
-        var movies = [];
-        for (var idx in data.subjects) {
-          var subject = data.subjects[idx];
-          var title = subject.title;
-          if (title.length >= 6) {
-            title = title.substring(0, 6) + "...";
-          }
-          var temp = {
-            stars: util.convertToStarsArray(subject.rating.stars),
-            title: title,
-            average: subject.rating.average,
-            coverageUrl: subject.images.medium,
-            movieId: subject.id
-          }
-          movies.push(temp);
-        }
-        var totalMovies = [];
-        totalMovies = that.data.movies.concat(movies);
-        that.setData({
-          movies: totalMovies
-        });
-      },
-      fail: function(error) {
-        console.log(error);
-      },
-      complete: function() {
-        wx.stopPullDownRefresh();
-        wx.hideNavigationBarLoading();
+  getMovieListData: function(data) {
+    console.log(data);
+    var movies = [];
+    for (var idx in data.subjects) {
+      var subject = data.subjects[idx];
+      var title = subject.title;
+      if (title.length >= 6) {
+        title = title.substring(0, 6) + "...";
       }
+      var temp = {
+        stars: util.convertToStarsArray(subject.rating.stars),
+        title: title,
+        average: subject.rating.average,
+        coverageUrl: subject.images.large,
+        movieId: subject.id
+      }
+      movies.push(temp);
+    }
+    var totalMovies = [];
+    totalMovies = this.data.movies.concat(movies);
+    this.setData({
+      movies: totalMovies
     });
   },
 
@@ -65,7 +47,7 @@ Page({
   onLoad: function(options) {
     var url = "https://douban.uieee.com/v2/movie/top250";
     this.data.requestUrl = url;
-    this.getMovieListData(url + "?star=0&count=21");
+    util.http(url + "?star=0&count=21", this.getMovieListData);
     wx.showNavigationBarLoading();
   },
 
@@ -106,8 +88,7 @@ Page({
 
     //刷新页面后将页面所有初始化参数恢复到初始值
     this.data.movies = [];
-    this.getMovieListData(refreshUrl);
-    //显示loading状态
+    util.http(refreshUrl, this.getMovieListData);
     wx.showNavigationBarLoading();
   },
 
@@ -119,8 +100,7 @@ Page({
     //拼接下一组数据的URL
     var nextUrl = this.data.requestUrl +
       "?start=" + totalCount + "&count=21";
-    this.getMovieListData(nextUrl);
-    //显示loading状态
+    util.http(nextUrl, this.getMovieListData);
     wx.showNavigationBarLoading();
   },
 

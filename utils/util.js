@@ -113,6 +113,7 @@ function http(url, successCallBack, failCallBack) {
       successCallBack(res.data);
     },
     fail: function(error) {
+      console.log(error);
       failCallBack();
     },
     complete: function() {
