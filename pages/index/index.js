@@ -19,42 +19,10 @@ Page({
   },
 
   //加载最近热映电影
-  getMovieListData: function(isRefresh) {
-    var that = this;
-    wx.request({
-      url: "https://douban.uieee.com/v2/movie/in_theaters",
-      method: 'GET',
-      header: {
-        "Content-Type": "json"
-      },
-      success: function(res) {
-        console.log(res.data);
-        that.loadInTheatersMovies(res.data);
-      },
-      fail: function(error) {
-        console.log(error);
-        if (!isRefresh) {
-          wx.showToast({
-            title: '加载失败',
-            icon: 'none'
-          })
-        } else {
-          wx.showToast({
-            title: '刷新失败',
-            icon: 'none'
-          })
-        }
-      },
-      complete: function() {
-        wx.hideLoading();
-        wx.stopPullDownRefresh();
-        wx.hideNavigationBarLoading();
-      }
-    });
-  },
   loadInTheatersMovies: function(data) {
     var inTheatersMovies = [];
     var swiperImages = [];
+    console.log(data);
     for (var idx in data.subjects) {
       var subject = data.subjects[idx];
       var title = subject.title;
@@ -82,11 +50,28 @@ Page({
     });
   },
 
+  failCallBack: function(isRefresh) {
+    console.log(error);
+    if (!isRefresh) {
+      wx.showToast({
+        title: '加载失败',
+        icon: 'none'
+      })
+    } else {
+      wx.showToast({
+        title: '刷新失败',
+        icon: 'none'
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getMovieListData();
+    var url = "https://douban.uieee.com/v2/movie/in_theaters";
+    this.data.baseUrl = url;
+    util.http(url, this.loadInTheatersMovies, this.failCallBack);
     wx.showLoading({
       "title": "加载中",
       mask: true
@@ -125,7 +110,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.getMovieListData(true);
+    util.http(this.data.baseUrl, this.loadInTheatersMovies, this.failCallBack(true));
     wx.showNavigationBarLoading();
   },
 

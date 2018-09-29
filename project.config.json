@@ -39,9 +39,9 @@
 			"current": 0,
 			"list": [
 				{
-					"id": 0,
-					"name": "detail",
-					"pathName": "pages/index/movie-detail/movie-detail",
+					"id": -1,
+					"name": "collect",
+					"pathName": "pages/collect/collect",
 					"query": "id=27069427"
 				}
 			]

@@ -16,60 +16,48 @@ Page({
   onLoad: function(options) {
     var movieId = options.id;
     var url = "https://douban.uieee.com/v2/movie/subject/" + movieId;
-    this.data.movieId = movieId;
-    this.getMovieInfo(url);
-    this.setData({
-      isCollected: util.getCollectionStatus(movieId)
-    });
+    util.http(url, this.getMovieInfo, this.failCallBack);
+    wx.showNavigationBarLoading();
   },
 
   //获取电影详细信息
-  getMovieInfo: function(url) {
-    var that = this;
-    wx.showNavigationBarLoading();
-    wx.request({
-      url: url,
-      method: 'GET',
-      header: {
-        "content-type": "json"
-      },
-      success: function(res) {
-        var data = res.data;
-        if (!data) {
-          return;
-        }
-        var movie = {
-          movieImg: data.images ? data.images.large : "",
-          country: data.countries[0],
-          title: data.title,
-          originalTitle: data.original_title,
-          wishCount: data.wish_count,
-          commentCount: data.comments_count,
-          year: data.year,
-          generes: data.genres.join("、"),
-          stars: util.convertToStarsArray(data.rating.stars),
-          score: data.rating.average,
-          directors: util.convertToCastString(data.directors),
-          casts: util.convertToCastString(data.casts),
-          castsInfo: util.convertToCastInfos(data.casts),
-          summary: data.summary
-        }
-        that.setData({
-          movie: movie
-        });
-        wx.setNavigationBarTitle({
-          title: data.title
-        });
-        wx.hideNavigationBarLoading();
-      },
-      fail: function(error) {
-        console.log(error);
-        wx.hideNavigationBarLoading();
-        wx.showToast({
-          title: '加载失败',
-          icon: 'none'
-        })
-      }
+  getMovieInfo: function(data) {
+    if (!data) {
+      return;
+    }
+    var movie = {
+      movieImg: data.images ? data.images.large : "",
+      country: data.countries[0],
+      title: data.title,
+      movieId: data.id,
+      originalTitle: data.original_title,
+      wishCount: data.wish_count,
+      commentCount: data.comments_count,
+      year: data.year,
+      generes: data.genres.join("、"),
+      stars: util.convertToStarsArray(data.rating.stars),
+      score: data.rating.average,
+      directors: util.convertToCastString(data.directors),
+      casts: util.convertToCastString(data.casts),
+      castsInfo: util.convertToCastInfos(data.casts),
+      summary: data.summary
+    }
+    this.setData({
+      movie: movie
+    });
+    this.setData({
+      isCollected: util.getCollectionStatus(data.id)
+    });
+    wx.setNavigationBarTitle({
+      title: data.title
+    });
+  },
+
+  failCallBack: function(error) {
+    console.log(error);
+    wx.showToast({
+      title: '加载失败',
+      icon: 'none'
     })
   },
 
@@ -83,9 +71,18 @@ Page({
   },
 
   collectTap: function() {
-    util.collectMovie(this.data.movieId);
+    var data = {
+      "title": this.data.movie.title,
+      "coverageUrl": this.data.movie.movieImg,
+      "movieId": this.data.movie.movieId,
+      "stars": this.data.movie.stars,
+      "score": this.data.movie.score,
+      "directors": this.data.movie.directors,
+      "casts": this.data.movie.casts
+    }
+    util.collectMovie(data);
     this.setData({
-      isCollected: util.getCollectionStatus(this.data.movieId)
+      isCollected: util.getCollectionStatus(this.data.movie.movieId)
     });
     wx.showToast({
       title: this.data.isCollected ? '收藏成功' : '取消成功',

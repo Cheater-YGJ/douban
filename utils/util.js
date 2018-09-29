@@ -102,7 +102,7 @@ function convertToStarsArray(stars) {
   return array;
 }
 
-function http(url, callBack) {
+function http(url, successCallBack, failCallBack) {
   wx.request({
     url: url,
     method: 'GET',
@@ -110,10 +110,15 @@ function http(url, callBack) {
       "content-type": "json"
     },
     success: function(res) {
-      callBack(res.data);
+      successCallBack(res.data);
     },
     fail: function(error) {
-      console.log(error)
+      failCallBack();
+    },
+    complete: function() {
+      wx.hideLoading();
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
     }
   })
 }
@@ -140,39 +145,39 @@ function convertToCastInfos(casts) {
 }
 
 //收藏或取消收藏电影
-function collectMovie(movieId) {
-  var ids = wx.getStorageSync("collectedMovies");
-  if (ids) {
+function collectMovie(data) {
+  var collectedMovies = wx.getStorageSync("collectedMovies");
+  if (collectedMovies) {
     var tag = false;
-    for (var idx in ids) {
-      if (movieId == ids[idx]) {
-        ids.splice(idx, 1);
+    for (var idx in collectedMovies) {
+      if (data.movieId == collectedMovies[idx].movieId) {
+        collectedMovies.splice(idx, 1);
         tag = true;
         break;
       }
     }
     if (!tag) {
-      ids.push(movieId);
+      collectedMovies.push(data);
     }
-    wx.setStorageSync("collectedMovies", ids);
+    wx.setStorageSync("collectedMovies", collectedMovies);
   } else {
-    ids = [];
-    ids.push(movieId);
-    wx.setStorageSync("collectedMovies", ids);
+    collectedMovies = [];
+    collectedMovies.push(data);
+    wx.setStorageSync("collectedMovies", collectedMovies);
   }
 }
 
-//获取所有收藏id
+//获取所有已收藏电影
 function getAllCollectedMovies() {
   return wx.getStorageSync("collectedMovies");
 }
 
 //获取收藏状态
 function getCollectionStatus(movieId) {
-  var ids = wx.getStorageSync("collectedMovies");
-  if (ids) {
-    for (var idx in ids) {
-      if (movieId == ids[idx]) {
+  var collectedMovies = wx.getStorageSync("collectedMovies");
+  if (collectedMovies) {
+    for (var idx in collectedMovies) {
+      if (movieId == collectedMovies[idx].movieId) {
         return true;
       }
     }
