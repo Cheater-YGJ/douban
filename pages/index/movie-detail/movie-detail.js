@@ -83,10 +83,11 @@ Page({
       url: 'video/video?resource_url=' + event.currentTarget.dataset.blooperSrc,
     });
     this.setData({
+      autoplay: false,
       backgroundSrc: "/images/icon/nowplaying_bar_play_n.png"
     })
   },
-  
+
   collectTap: function() {
     if (this.data.isCollected != null) {
       var data = {
@@ -121,7 +122,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      autoplay: true
+    })
   },
 
   /**
