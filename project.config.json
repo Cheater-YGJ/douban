@@ -41,8 +41,8 @@
 				{
 					"id": -1,
 					"name": "collect",
-					"pathName": "pages/index/movie-detail/video/video",
-					"query": "resource_url=http://vt1.doubanio.com/201810021053/bdaad557345f2f650c01a4e5bed738a0/view/movie/M/302370081.mp4"
+					"pathName": "pages/index/movie-detail/movie-detail",
+					"query": "id=27092785"
 				}
 			]
 		}

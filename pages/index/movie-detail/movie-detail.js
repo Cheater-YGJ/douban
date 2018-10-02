@@ -40,6 +40,7 @@ Page({
       stars: util.convertToStarsArray(data.rating.stars),
       score: data.rating.average,
       bloopers: data.bloopers,
+      trailers: data.trailers,
       directors: util.convertToCastString(data.directors),
       casts: util.convertToCastString(data.casts),
       castsInfo: util.convertToCastInfos(data.casts),
@@ -79,9 +80,19 @@ Page({
   },
 
   onTapPlayEnd: function(event) {
-    wx.navigateTo({
-      url: 'video/video?resource_url=' + event.currentTarget.dataset.blooperSrc,
-    });
+    var id = event.currentTarget.dataset.id;
+    var split = id.split('-');
+    switch (split[0]) {
+      case 'trailer':
+        wx.navigateTo({
+          url: 'video/video?title=' + this.data.movie.trailers[split[1]].title + '&resource_url=' + this.data.movie.trailers[split[1]].resource_url
+        });
+        break;
+      case 'blooper':
+        wx.navigateTo({
+          url: 'video/video?title=' + this.data.movie.bloopers[split[1]].title + '&resource_url=' + this.data.movie.bloopers[split[1]].resource_url
+        });
+    }
     this.setData({
       autoplay: false,
       backgroundSrc: "/images/icon/nowplaying_bar_play_n.png"

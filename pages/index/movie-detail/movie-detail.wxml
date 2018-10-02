@@ -1,8 +1,14 @@
 <import src="../stars/stars-tpl.wxml" />
-<swiper indicator-dots='true' autoplay='{{autoplay}}' circular='true' style='display:{{movie.bloopers.length==0?"none":"block"}}'>
+<swiper indicator-dots='true' autoplay='{{autoplay}}' circular='true' style='display:{{movie.trailers.length==0&&movie.bloopers.length==0?"none":"block"}}'>
+  <swiper-item wx:for='{{movie.trailers}}'>
+    <image class='backgroud' src='{{item.medium}}'>
+      <image class='paly-btn' src='{{backgroundSrc}}' catchtouchstart='onTapPlay' catchtouchend='onTapPlayEnd' mode='aspectFill' data-id='{{"trailer-"+index}}'></image>
+      <text>{{item.title}}</text>
+    </image>
+  </swiper-item>
   <swiper-item wx:for='{{movie.bloopers}}'>
     <image class='backgroud' src='{{item.medium}}'>
-      <image class='paly-btn' src='{{backgroundSrc}}' catchtouchstart='onTapPlay' catchtouchend='onTapPlayEnd' mode='aspectFill' data-blooper-src='{{item.resource_url}}'></image>
+      <image class='paly-btn' src='{{backgroundSrc}}' catchtouchstart='onTapPlay' catchtouchend='onTapPlayEnd' mode='aspectFill' data-id='{{"blooper-"+index}}'></image>
       <text>{{item.title}}</text>
     </image>
   </swiper-item>
