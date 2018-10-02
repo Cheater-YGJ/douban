@@ -1,0 +1,1 @@
+<video id='video' src='{{resource_url}}' autoplay='true' controls></video>

@@ -186,6 +186,27 @@ function getCollectionStatus(movieId) {
   return false;
 }
 
+//获取指定数量指定范围的随机数
+function getRandom(count, range = 10) {
+  var randomArray = [];
+  for (var i = 0; i < count; i++) {
+    var flag = false;
+    do {
+      var temp = parseInt(Math.random() * range);
+      for (var idx in randomArray) {
+        if (temp == randomArray[idx]) {
+          flag = true;
+          break;
+        }
+      }
+      if (!flag) {
+        randomArray.push(temp);
+      }
+    } while (flag);
+  }
+  return randomArray;
+}
+
 module.exports = {
   getDiffTime: getDiffTime,
   convertToStarsArray: convertToStarsArray,
@@ -194,5 +215,6 @@ module.exports = {
   convertToCastInfos: convertToCastInfos,
   collectMovie: collectMovie,
   getAllCollectedMovies: getAllCollectedMovies,
-  getCollectionStatus: getCollectionStatus
+  getCollectionStatus: getCollectionStatus,
+  getRandom: getRandom
 }

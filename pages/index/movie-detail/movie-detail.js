@@ -7,7 +7,8 @@ Page({
    */
   data: {
     movie: {},
-    isCollected: null
+    autoplay: true,
+    backgroundSrc: "/images/icon/nowplaying_bar_play_n.png"
   },
 
   /**
@@ -25,6 +26,7 @@ Page({
     if (!data) {
       return;
     }
+    console.log(data);
     var movie = {
       movieImg: data.images ? data.images.large : "",
       country: data.countries[0],
@@ -37,6 +39,7 @@ Page({
       generes: data.genres.join("、"),
       stars: util.convertToStarsArray(data.rating.stars),
       score: data.rating.average,
+      bloopers: data.bloopers,
       directors: util.convertToCastString(data.directors),
       casts: util.convertToCastString(data.casts),
       castsInfo: util.convertToCastInfos(data.casts),
@@ -69,6 +72,21 @@ Page({
     })
   },
 
+  onTapPlay: function() {
+    this.setData({
+      backgroundSrc: "/images/icon/nowplaying_bar_play_p.png"
+    })
+  },
+
+  onTapPlayEnd: function(event) {
+    wx.navigateTo({
+      url: 'video/video?resource_url=' + event.currentTarget.dataset.blooperSrc,
+    });
+    this.setData({
+      backgroundSrc: "/images/icon/nowplaying_bar_play_n.png"
+    })
+  },
+  
   collectTap: function() {
     if (this.data.isCollected != null) {
       var data = {

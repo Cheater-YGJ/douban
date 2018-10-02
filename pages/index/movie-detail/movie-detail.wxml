@@ -1,4 +1,12 @@
 <import src="../stars/stars-tpl.wxml" />
+<swiper indicator-dots='true' autoplay='true' circular='true' style='display:{{movie.bloopers.length==0?"none":"block"}}'>
+  <swiper-item wx:for='{{movie.bloopers}}'>
+    <image class='backgroud' src='{{item.medium}}'>
+      <image class='paly-btn' src='{{backgroundSrc}}' catchtouchstart='onTapPlay' catchtouchend='onTapPlayEnd' mode='aspectFill' data-blooper-src='{{item.resource_url}}'></image>
+      <text>{{item.title}}</text>
+    </image>
+  </swiper-item>
+</swiper>
 <view class="container">
   <image class="head-img" src="{{movie.movieImg}}" mode="aspectFill" />
   <view class="head-img-hover">
@@ -21,7 +29,7 @@
   </view>
   <image class="movie-img" src="{{movie.movieImg}}" data-src="{{movie.movieImg}}" catchtap="viewMoviePostImg" />
   <view class='collect-img' catchtap='collectTap'>
-    <image wx:if="{{isCollected}}" src='../../../images/icon/wx_app_collect@HL.png' />
+    <image wx:if="{{isCollected}}" src='../../../images/icon/wx_app_collected.png' />
     <image wx:else src='../../../images/icon/wx_app_collect.png' />
   </view>
   <view class="summary">

@@ -1,8 +1,10 @@
 <import src="movie-item/movie-item-tpl.wxml" />
 <view>
-  <swiper indicator-dots='true' autoplay='true'>
+  <swiper indicator-dots='true' autoplay='true' circular='true'>
     <swiper-item wx:for='{{swiperImages}}' catchtap='onTapToDetail' data-movie-id='{{item.movieId}}'>
-      <image src='{{item.coverageUrl}}' mode='aspectFill' />
+      <image src='{{item.coverageUrl}}' mode='aspectFill'>
+        <text>{{item.title}}</text>
+      </image>
     </swiper-item>
   </swiper>
   <block wx:for="{{inTheatersMovies}}">

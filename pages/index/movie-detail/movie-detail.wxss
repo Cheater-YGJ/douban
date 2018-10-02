@@ -1,8 +1,35 @@
 @import "../stars/stars-tpl.wxss";
 
+swiper {
+  width: 100%;
+  height: 450rpx;
+  position: relative;
+}
+
+swiper-item .backgroud {
+  width: 100%;
+  height: 450rpx;
+}
+
+swiper-item .paly-btn {
+  width: 100rpx;
+  height: 100rpx;
+  position: absolute;
+  top: 175rpx;
+  left: 325rpx;
+}
+
+swiper-item text {
+  position: absolute;
+  bottom: 50rpx;
+  left: 5px;
+  color: #d9d9d9;
+}
+
 .container {
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .head-img {

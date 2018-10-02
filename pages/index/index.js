@@ -22,6 +22,7 @@ Page({
   loadInTheatersMovies: function(data) {
     var inTheatersMovies = [];
     var swiperImages = [];
+    var randomArray = util.getRandom(5, 20);
     console.log(data);
     for (var idx in data.subjects) {
       var subject = data.subjects[idx];
@@ -35,13 +36,17 @@ Page({
         directors: util.convertToCastString(subject.directors),
         casts: util.convertToCastString(subject.casts)
       }
-      var swiperTemp = {
-        coverageUrl: subject.images.large,
-        movieId: subject.id,
-      }
       inTheatersMovies.push(temp);
-      if (idx < 5) {
-        swiperImages.push(swiperTemp);
+      for (var index in randomArray) {
+        if (idx == randomArray[index]) {
+          var swiperTemp = {
+            title: title,
+            coverageUrl: subject.images.large,
+            movieId: subject.id
+          }
+          swiperImages.push(swiperTemp);
+          break;
+        }
       }
     }
     this.setData({

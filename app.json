@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/index/movie-detail/movie-detail",
     "pages/category/category",
-    "pages/collect/collect"
+    "pages/collect/collect",
+    "pages/index/movie-detail/video/video"
   ],
   "window": {
     "navigationBarBackgroundColor": "#4A6141",
