@@ -44,7 +44,8 @@ Page({
       directors: util.convertToCastString(data.directors),
       casts: util.convertToCastString(data.casts),
       castsInfo: util.convertToCastInfos(data.casts),
-      summary: data.summary
+      summary: data.summary,
+      alt: data.alt
     }
     this.setData({
       movie: movie
@@ -120,6 +121,13 @@ Page({
         mask: true
       })
     }
+  },
+
+  onTapToDouban: function() {
+    var url = this.data.movie.alt;
+    wx.navigateTo({
+      url: 'douban-web/douban-web?url=' + url,
+    })
   },
 
   /**

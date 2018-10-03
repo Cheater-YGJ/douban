@@ -160,6 +160,7 @@ swiper-item text {
   display: flex;
   flex-direction: column;
   margin-top: 50rpx;
+  margin-bottom: 80rpx;
 }
 
 .cast-font {
@@ -188,4 +189,26 @@ swiper-item text {
 
 .cast-name {
   margin: 10rpx auto 0;
+}
+
+.bottom-container {
+  width: 100%;
+  height: 110rpx;
+  position: fixed;
+  bottom: 0;
+  background: #f7f7fa;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.douban-btn {
+  width: 240rpx;
+  height: 80rpx;
+  margin: 0 auto;
+  background: #ec7c22;
+  color: #f7f7fa;
+  border-radius: 40rpx;
+  text-align: center;
+  line-height: 80rpx;
 }

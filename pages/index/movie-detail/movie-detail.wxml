@@ -77,3 +77,6 @@
     </scroll-view>
   </view>
 </view>
+<view class='bottom-container'>
+  <view class='douban-btn' catchtap='onTapToDouban'>进入豆瓣</view>
+</view>
