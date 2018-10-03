@@ -160,12 +160,11 @@ function collectMovie(data) {
     if (!tag) {
       collectedMovies.push(data);
     }
-    wx.setStorageSync("collectedMovies", collectedMovies);
   } else {
     collectedMovies = [];
     collectedMovies.push(data);
-    wx.setStorageSync("collectedMovies", collectedMovies);
   }
+  wx.setStorageSync("collectedMovies", collectedMovies);
 }
 
 //获取所有已收藏电影
