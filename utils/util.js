@@ -189,8 +189,8 @@ function getCollectionStatus(movieId) {
 function getRandom(count, range = 10) {
   var randomArray = [];
   for (var i = 0; i < count; i++) {
-    var flag = false;
     do {
+      var flag = false;
       var temp = parseInt(Math.random() * range);
       for (var idx in randomArray) {
         if (temp == randomArray[idx]) {
