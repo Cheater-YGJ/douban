@@ -1,1 +1,58 @@
 @import "movie-grid/movie-grid-tpl.wxss";
+
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 18rpx 30rpx;
+  background: #d9d9d9;
+}
+
+.searchIcon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 30rpx;
+}
+
+.search input {
+  width: 550rpx;
+  line-height: 40rpx;
+}
+
+.cancel {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 30rpx;
+}
+
+.head-bar {
+  height: 80rpx;
+  font-size: 30rpx;
+  padding: 0 30rpx;
+  background: #edece8;
+}
+
+.categoryTitle {
+  line-height: 80rpx;
+}
+
+.more-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  float: right;
+  line-height: 80rpx;
+}
+
+.more {
+  margin-right: 5rpx;
+}
+
+.arrow-right {
+  width: 25rpx;
+  height: 28rpx;
+}
+
+.grid-container {
+  margin-bottom: 0;
+}

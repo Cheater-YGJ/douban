@@ -41,8 +41,8 @@
 				{
 					"id": -1,
 					"name": "collect",
-					"pathName": "pages/index/movie-detail/movie-detail",
-					"query": "id=27092785"
+					"pathName": "pages/category/category",
+					"query": ""
 				}
 			]
 		}

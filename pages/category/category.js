@@ -6,11 +6,44 @@ Page({
    * 页面的初始数据
    */
   data: {
-    movies: []
+    ComingSoon: {},
+    top250: {},
+    searchPanelShow: false,
+    categoryShow: true,
+    searchResult: {}
   },
 
-  getMovieListData: function(data) {
-    console.log(data);
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    var comingSoonUrl = "https://douban.uieee.com/v2/movie/coming_soon" + "?start=0&count=9";
+    var top250Url = "https://douban.uieee.com/v2/movie/top250" + "?start=0&count=9";
+
+    wx.showNavigationBarLoading();
+    this.getMovieListData(comingSoonUrl, "ComingSoon", "即将上映");
+    this.getMovieListData(top250Url, "top250", "豆瓣top250");
+  },
+
+  getMovieListData: function(url, key, categoryTitle) {
+    var _this = this;
+    wx.request({
+      url: url,
+      method: 'GET',
+      header: {
+        "content-type": "json"
+      },
+      success: function(res) {
+        console.log(res.data);
+        _this.loadMovieListData(res.data, key, categoryTitle);
+      },
+      fail: function(error) {
+        console.log(error);
+      }
+    })
+  },
+
+  loadMovieListData: function(data, key, categoryTitle) {
     var movies = [];
     for (var idx in data.subjects) {
       var subject = data.subjects[idx];
@@ -27,11 +60,13 @@ Page({
       }
       movies.push(temp);
     }
-    var totalMovies = [];
-    totalMovies = this.data.movies.concat(movies);
-    this.setData({
-      movies: totalMovies
-    });
+    var readyData = {};
+    readyData[key] = {
+      categoryTitle: categoryTitle,
+      movies: movies
+    }
+    this.setData(readyData);
+    wx.hideNavigationBarLoading();
   },
 
   onMovieTap: function(event) {
@@ -41,14 +76,34 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    var url = "https://douban.uieee.com/v2/movie/top250";
-    this.data.requestUrl = url;
-    util.http(url + "?star=0&count=21", this.getMovieListData);
-    wx.showNavigationBarLoading();
+  onMoreTap: function(event) {
+    var categorytitle = event.currentTarget.dataset.categorytitle;
+    console.log(categorytitle);
+    wx.navigateTo({
+      url: "more-movies/more-movies?categorytitle=" + categorytitle
+    })
+  },
+
+  onBindFocus: function(event) {
+    this.setData({
+      categoryShow: false,
+      searchPanelShow: true
+    })
+  },
+
+  onCancelImgTap: function(event) {
+    this.setData({
+      categoryShow: true,
+      searchPanelShow: false,
+      searchResult: {},
+      inputValue: ''
+    })
+  },
+
+  onBindConfirm: function(event) {
+    var keyWord = event.detail.value;
+    var searchUrl = "https://douban.uieee.com/v2/movie/search?q=" + keyWord;
+    this.getMovieListData(searchUrl, "searchResult", "");
   },
 
   /**
@@ -83,25 +138,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    var refreshUrl = this.data.requestUrl +
-      "?star=0&count=21";
 
-    //刷新页面后将页面所有初始化参数恢复到初始值
-    this.data.movies = [];
-    util.http(refreshUrl, this.getMovieListData);
-    wx.showNavigationBarLoading();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    var totalCount = this.data.movies.length;
-    //拼接下一组数据的URL
-    var nextUrl = this.data.requestUrl +
-      "?start=" + totalCount + "&count=21";
-    util.http(nextUrl, this.getMovieListData);
-    wx.showNavigationBarLoading();
+
   },
 
   /**

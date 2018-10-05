@@ -18,7 +18,7 @@ Page({
     })
   },
 
-  //加载最近热映电影
+  //加载正在热映电影
   loadInTheatersMovies: function(data) {
     var inTheatersMovies = [];
     var swiperImages = [];

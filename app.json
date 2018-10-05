@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/index/movie-detail/movie-detail",
     "pages/category/category",
+    "pages/category/more-movies/more-movies",
     "pages/collect/collect",
     "pages/index/movie-detail/video/video",
     "pages/index/movie-detail/douban-web/douban-web"
@@ -20,19 +21,19 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "最近热映",
+        "text": "正在热映",
         "iconPath": "images/icon/wx_app_movie.png",
         "selectedIconPath": "images/icon/wx_app_movie@HL.png"
       },
       {
         "pagePath": "pages/category/category",
-        "text": "Top250",
+        "text": "更多电影",
         "iconPath": "images/icon/wx_app_movie.png",
         "selectedIconPath": "images/icon/wx_app_movie@HL.png"
       },
       {
         "pagePath": "pages/collect/collect",
-        "text": "收藏",
+        "text": "我已收藏",
         "iconPath": "images/icon/wx_app_collect.png",
         "selectedIconPath": "images/icon/wx_app_collect@HL.png"
       }

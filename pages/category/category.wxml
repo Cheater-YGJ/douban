@@ -1,2 +1,29 @@
 <import src="movie-grid/movie-grid-tpl.wxml" />
-<template is="movieGridTpl" data="{{movies}}" />
+<view class='search'>
+  <icon type='search' class='searchIcon'></icon>
+  <input placeholder='搜索电影' bindfocus='onBindFocus' bindconfirm='onBindConfirm' value='{{inputValue}}'></input>
+  <image class='cancel' wx:if='{{searchPanelShow}}' src='/images/icon/wx_app_xx.png' catchtap='onCancelImgTap'></image>
+</view>
+<view class='container' wx:if='{{categoryShow}}'>
+  <view class='head-bar'>
+    <text class='categoryTitle'>{{ComingSoon.categoryTitle}}</text>
+    <view class='more-option' catchtap='onMoreTap' data-categorytitle='{{ComingSoon.categoryTitle}}'>
+      <text class='more'>更多</text>
+      <image class='arrow-right' src='/images/icon/wx_app_arrow_right.png'></image>
+    </view>
+  </view>
+  <template is="movieGridTpl" data="{{...ComingSoon}}" />
+</view>
+<view class='container' wx:if='{{categoryShow}}'>
+  <view class='head-bar'>
+    <text class='categoryTitle'>{{top250.categoryTitle}}</text>
+    <view class='more-option' catchtap='onMoreTap' data-categorytitle='{{top250.categoryTitle}}'>
+      <text class='more'>更多</text>
+      <image class='arrow-right' src='/images/icon/wx_app_arrow_right.png'></image>
+    </view>
+  </view>
+  <template is="movieGridTpl" data="{{...top250}}" />
+</view>
+<view class='searchPanel' wx:if="{{searchPanelShow}}">
+  <template is="movieGridTpl" data="{{...searchResult}}" />
+</view>

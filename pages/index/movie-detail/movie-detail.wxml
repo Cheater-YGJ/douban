@@ -33,7 +33,7 @@
       </text>
     </view>
   </view>
-  <image class="movie-img" src="{{movie.movieImg}}" data-src="{{movie.movieImg}}" catchtap="viewMoviePostImg" />
+  <image class="movie-img" src="{{movie.movieImg}}" data-src="{{movie.movieImg}}" catchtap="viewMoviePostImg" mode='aspectFill' />
   <view class='collect-img' catchtap='collectTap'>
     <image wx:if="{{isCollected}}" src='../../../images/icon/wx_app_collected.png' />
     <image wx:else src='../../../images/icon/wx_app_collect.png' />
