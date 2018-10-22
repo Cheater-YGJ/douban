@@ -102,18 +102,10 @@ Page({
 
   collectTap: function() {
     if (this.data.isCollected != null) {
-      var data = {
-        "title": this.data.movie.title,
-        "coverageUrl": this.data.movie.movieImg,
-        "movieId": this.data.movie.movieId,
-        "stars": this.data.movie.stars,
-        "score": this.data.movie.score,
-        "directors": this.data.movie.directors,
-        "casts": this.data.movie.casts
-      }
-      util.collectMovie(data);
+      var movieId = this.data.movie.movieId;
+      util.collectMovie(movieId);
       this.setData({
-        isCollected: util.getCollectionStatus(this.data.movie.movieId)
+        isCollected: util.getCollectionStatus(movieId)
       });
       wx.showToast({
         title: this.data.isCollected ? '收藏成功' : '取消成功',

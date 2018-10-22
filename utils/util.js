@@ -146,23 +146,23 @@ function convertToCastInfos(casts) {
 }
 
 //收藏或取消收藏电影
-function collectMovie(data) {
+function collectMovie(movieId) {
   var collectedMovies = wx.getStorageSync("collectedMovies");
   if (collectedMovies) {
-    var tag = false;
+    var flag = true;
     for (var idx in collectedMovies) {
-      if (data.movieId == collectedMovies[idx].movieId) {
+      if (movieId == collectedMovies[idx]) {
         collectedMovies.splice(idx, 1);
-        tag = true;
+        flag = false;
         break;
       }
     }
-    if (!tag) {
-      collectedMovies.push(data);
+    if (flag) {
+      collectedMovies.push(movieId);
     }
   } else {
     collectedMovies = [];
-    collectedMovies.push(data);
+    collectedMovies.push(movieId);
   }
   wx.setStorageSync("collectedMovies", collectedMovies);
 }
@@ -177,7 +177,7 @@ function getCollectionStatus(movieId) {
   var collectedMovies = wx.getStorageSync("collectedMovies");
   if (collectedMovies) {
     for (var idx in collectedMovies) {
-      if (movieId == collectedMovies[idx].movieId) {
+      if (movieId == collectedMovies[idx]) {
         return true;
       }
     }

@@ -41,7 +41,7 @@
 				{
 					"id": -1,
 					"name": "collect",
-					"pathName": "pages/category/category",
+					"pathName": "pages/collect/collect",
 					"query": ""
 				}
 			]
