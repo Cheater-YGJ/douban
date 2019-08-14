@@ -38,5 +38,6 @@
         "selectedIconPath": "images/icon/wx_app_collect@HL.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

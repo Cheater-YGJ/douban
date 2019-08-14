@@ -13,11 +13,13 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
 	"appid": "wx2271e8544e5ac3f5",
-	"projectname": "%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1%E6%B5%8F%E8%A7%88",
+	"projectname": "douban",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
